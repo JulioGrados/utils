@@ -2,7 +2,7 @@ const axios = require('axios')
 const CryptoJS = require('crypto-js')
 const httpBuildQuery = require('http-build-query')
 
-const {url, userkey, secretkey} = require('config').zadarma
+const config = require('config')
 
 const params_sort = function params_sort(obj) {
     let sorted = {}
@@ -41,12 +41,12 @@ const prepare_data_to_request = function prepare_data_to_request(obj) {
 module.exports.api = async function request(obj) {
   
   let {//block set default parameters if not set
-      baseURL = url,
+      baseURL = config.zadarma.url,
       api_method = '',
       params = {},
       http_method = 'GET',//GET || POST || PUT || DELETE
-      api_user_key = userkey,
-      api_secret_key = secretkey,
+      api_user_key = config.zadarma.userkey,
+      api_secret_key = config.zadarma.secretkey,
       timeout = 0//number of milliseconds
   } = obj;
 

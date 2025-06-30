@@ -1,5 +1,5 @@
 const CryptoJS = require('crypto-js')
-const secretkey = require('config').zadarma.secretkey
+const config = require('config')
 
 const verify_ip = function verify_ip(req) {
   return '185.45.152.42' === (req.headers['x-forwarded-for'] || req.connection.remoteAddress.split(':').pop())
@@ -58,7 +58,7 @@ const check_zd_echo = function check_zd_echo(req) {
 
 const verify_data = function verify_data(data_string, signature) {
 
-  let sha1 = CryptoJS.HmacSHA1(data_string, secretkey).toString()
+  let sha1 = CryptoJS.HmacSHA1(data_string, config.zadarma.secretkey).toString()
   return new Buffer.from(sha1).toString('base64') === signature
 }
 
